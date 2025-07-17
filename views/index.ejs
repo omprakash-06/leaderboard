@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leaderboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white py-4 shadow-md">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl font-bold mb-4 text-white text-center"> Leaderboard App 🏆</h2>
+      <ul class="flex space-x-6 text-white font-medium justify-between">
+      <li><a href="/" class="hover:text-orange-300 transition">Home</a></li>
+      <li><a href="/" class="hover:text-orange-300 transition">Leaderboard</a></li>
+      <li><a href="/history" class="hover:text-orange-300 transition">Claim History</a></li>
+    </ul>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="max-w-3xl mx-auto bg-white p-6 mt-6 rounded-xl shadow-lg">
+
+    <!-- Add New User Form -->
+    <form action="/add" method="POST" class="mb-6 flex gap-3 items-center justify-center"> 
+      <div class="flex flex-col gap-4 ">
+        <div>
+          <input type="text" name="name" placeholder="Enter new user name" class="flex-1 border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+         <button type="submit" class="  bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Add User</button>
+        </div>
+
+       <div>
+         <input type="text" name="profile" placeholder="Enter new user name" class="flex-1 border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" required>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">Add Profile</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- Claim Points Form -->
+    <form action="/claim" method="POST" class="mb-6 flex gap-3 items-center">
+      <select name="userId" class="  flex-1 border border-gray-300 rounded p-3 mx-5 focus:outline-none focus:ring-2 focus:ring-green-400" required>
+        <% users.forEach(user => { %>
+          <option value="<%= user._id %>"><%= user.name %></option>
+        <% }) %>
+      </select>
+      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+        Claim Points
+      </button>
+    </form>
+
+  
+<div  class="bg-purple-200 min-h-screen py-6">
+  <div class="text-center mb-4 text-xl font-bold">Hourly Ranking</div>
+  <!-- Top 3 users -->
+  <div class="flex justify-center gap-4 mb-6">
+    <%ClaimHistory.forEach((user, index) => { %>
+     <% if(index<=2){ %>
+      <div class="bg-white shadow-md rounded-xl p-4 w-28 text-center">
+        <img src="<%=user.profile%>" class="w-16 h-16 mx-auto rounded-full" />
+        <div class="font-semibold text-sm mt-2"><%= user.name %></div>
+        <div class="text-orange-500 font-bold text-sm"><%= user.totalPoints %> 🔥</div>
+        <div class="text-xs text-gray-500">#<%= index + 1 %></div>
+      </div>
+     <% } %>
+    <% }) %>
+  </div>
+   <h1 class="flex justify-center text-blue-400 p-4 font-bold ">LEADER BOARD</h1>
+  <!-- Others -->
+  <div class="bg-white max-w-md mx-auto rounded-lg shadow p-4">
+    <% ClaimHistory.forEach((user, index) => { %>
+      <div class="flex items-center justify-between py-2 border-b">
+        <div class="flex items-center gap-3">
+          <img src="<%=user.profile%>" class="w-10 h-10 rounded-full" />
+          <div>
+            <div class="font-medium text-sm"><%= user.name %></div>
+            <div class="text-xs text-gray-400">ID: <%= user.userId %></div>
+          </div>
+        </div>
+        <div class="font-semibold text-orange-500 text-sm"><%= user.totalPoints%> 🔥</div>
+        <div class="text-gray-400 text-xs">#<%= index + 4 %></div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+
+    <div class="mt-6 text-center">
+      <a href="/history" class="text-blue-500 hover:underline">View Claim History →</a>
+    </div>
+  </div>
+
+</body>
+</html>

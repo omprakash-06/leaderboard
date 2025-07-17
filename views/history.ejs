@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Claim History</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-center text-purple-600 mb-6">Claim History</h1>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-700 border border-gray-200">
+        <thead class="text-xs uppercase bg-purple-600 text-white">
+          <tr>
+             <th scope="col" class="px-6 py-3 text-center">User profile</th>
+            <th scope="col" class="px-6 py-3 text-center">User</th>
+            <th scope="col" class="px-6 py-3 text-center">Points</th>
+            <th scope="col" class="px-6 py-3 text-center">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% history.forEach(entry => { %>
+            <tr class="bg-white border-b hover:bg-gray-50">
+              
+              <td><img src="<%=entry.profile%>" class="w-16 h-16 mx-auto rounded-full"/></td>
+              <td class="px-6 py-4 text-center font-medium text-gray-800"><%= entry.userName %></td>
+              <td class="px-6 py-4 text-center text-orange-600 font-semibold"><%= entry.pointsClaimed %></td>
+              <td class="px-6 py-4 text-center text-gray-600"><%= entry.claimedAt.toLocaleString() %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-6 text-center">
+      <a href="/" class="inline-block text-purple-600 font-semibold hover:underline">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
