@@ -52,6 +52,4 @@ app.get('/history', async (req, res) => {
   res.render('history',{history});
 });
 
-
-// Start server
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
